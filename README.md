@@ -40,8 +40,8 @@ Logo em seguida, adicione essas linhas dentro do *android/gradle.properties* do 
 ```groovy
 MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
 MYAPP_RELEASE_KEY_ALIAS=my-key-alias
-MYAPP_RELEASE_STORE_PASSWORD=*Sua senha*
-MYAPP_RELEASE_KEY_PASSWORD=*Sua senha*
+MYAPP_RELEASE_STORE_PASSWORD=*Sua_senha*
+MYAPP_RELEASE_KEY_PASSWORD=*Sua_senha*
 ```
 
 ## Passo 07
