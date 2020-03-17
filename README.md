@@ -1,50 +1,39 @@
 # Gerador de Chaves React Native
 
-Esse executável permite que você crie chaves para gerar APKs com React Native.
-
-> Por enquanto somente para Linux ;)
+Esse passo a passo permite que você crie chaves para gerar APKs com React Native.
 
 ## Passo 01
 
-Clone o projeto para sua máquina dentro de um diretório de sua preferência.
+Entre dentro do diretório *android/app/* do seu seu projeto
 
 ## Passo 02
 
-Abra o terminal e execute o seguinte comando:
+Abra o terminal e, com permissão de super usuário, execute o seguinte comando:
 
 ```bash
-sudo chmod +x "Gerador de chaves React.sh"
+keytool -genkey -v -keystore release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
 ```
 
 ## Passo 03
 
-Execute o arquivo:
-```sh
-./"Gerador de chaves React.sh"
-```
+Adicione as informações que forem requisitadas.
 
 ## Passo 04
 
-Adicione as informações que forem requisitadas.
-
-> Se preferir você pode deixar as informações requisitadas em branco e ir apertando o ENTER.
+Logo após, será criado um arquivo que será a chave que vai registrar o seu APK dentro do diretório. Verifique se o mesmo aparece com o nome *release-key.keystore*
 
 ## Passo 05
 
-Será criada no seu diretório atual um arquivo que será a chave que vai registrar o seu APK. Mova esse arquivo para o diretório *android/app* do seu aplicativo.
-
-## Passo 06
-
-Logo em seguida, adicione essas linhas dentro do *android/gradle.properties* do seu app:
+Logo em seguida, adicione essas linhas no final do arquivo *android/gradle.properties* do seu app:
 
 ```groovy
-MYAPP_RELEASE_STORE_FILE=my-release-key.keystore
+MYAPP_RELEASE_STORE_FILE=release-key.keystore
 MYAPP_RELEASE_KEY_ALIAS=my-key-alias
 MYAPP_RELEASE_STORE_PASSWORD=*Sua_senha*
 MYAPP_RELEASE_KEY_PASSWORD=*Sua_senha*
 ```
 
-## Passo 07
+## Passo 06
 
 Logo após, adicione essas linhas dentro de *android/app/build.grade*:
 
@@ -54,7 +43,8 @@ Logo após, adicione essas linhas dentro de *android/app/build.grade*:
 android {
     ...
     defaultConfig { ... }
-    signingConfigs {                                                  // }
+    signingConfigs {
+        ...
         release {                                                     // }
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {    // }
                 storeFile file(MYAPP_RELEASE_STORE_FILE)              // }  Essas Linhas
@@ -63,7 +53,7 @@ android {
                 keyPassword MYAPP_RELEASE_KEY_PASSWORD                // }
             }                                                         // }
         }                                                             // }
-    }                                                                 // }
+    }                                                                 
     buildTypes {
         release {
             ...
@@ -76,9 +66,9 @@ android {
  
 ```
 
-## Passo 08
+## Passo 07
 
-Vá para o diretório android e execute o comando:
+Vá para o diretório *android/* do seu projeto e execute o comando:
 
 ```sh
 ./gradlew assembleRelease
