@@ -16,7 +16,7 @@ keytool -genkey -v -keystore release-key.keystore -alias my-key-alias -keyalg RS
 
 ## Passo 03
 
-Adicione as informações que forem requisitadas.
+Adicione as informações que forem requisitadas.(Se desejadas)
 
 ## Passo 04
 
@@ -74,7 +74,7 @@ Vá para o diretório *android/* do seu projeto e execute o comando:
 ./gradlew assembleRelease
 ```
 
-Depois disso é só executar 
+Depois disso é só voltar para o diretório raíz do seu projeto e executar:
 
 ```sh
 react-native run-android --variant=release
